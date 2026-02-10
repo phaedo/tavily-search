@@ -1,0 +1,22 @@
+{
+  "id": "tavily-search",
+  "name": "Tavily Search Plugin",
+  "description": "A plugin that provides Tavily web search functionality for OpenClaw agents",
+  "version": "1.0.0",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "description": "Tavily API Key"
+      }
+    },
+    "required": ["apiKey"]
+  },
+  "uiHints": {
+    "apiKey": {
+      "label": "Tavily API Key",
+      "sensitive": true
+    }
+  }
+}

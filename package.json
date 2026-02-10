@@ -1,0 +1,76 @@
+{
+  "name": "tavily-search",
+  "version": "1.0.0",
+  "description": "Tavily Search Plugin for OpenClaw",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "search",
+    "tavily",
+    "ai"
+  ],
+  "author": "OpenClaw",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.13.5"
+  },
+  "openclaw": {
+    "type": "plugin",
+    "apiVersion": "1.0.0",
+    "tool": {
+      "name": "tavily_search",
+      "description": "使用 Tavily API 进行网页搜索的插件。Tavily 是专为 AI 应用设计的搜索 API，提供结构化搜索结果和内容摘要。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "搜索查询字符串"
+          },
+          "count": {
+            "type": "number",
+            "description": "返回的结果数量（1-10），默认 5",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          },
+          "search_depth": {
+            "type": "string",
+            "description": "搜索深度，basic 或 advanced，默认 basic",
+            "enum": [
+              "basic",
+              "advanced"
+            ],
+            "default": "basic"
+          },
+          "include_answer": {
+            "type": "boolean",
+            "description": "是否包含 AI 生成的答案摘要，默认 false",
+            "default": false
+          },
+          "include_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "限制搜索的域名列表"
+          },
+          "exclude_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "排除的域名列表"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    }
+  }
+}
