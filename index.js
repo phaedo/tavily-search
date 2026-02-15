@@ -4,7 +4,7 @@ const axios = require('axios');
  * Performs a search using the Tavily API
  * @param {string} query - The search query
  * @param {Object} options - Search options
- * @param {string} options.apiKey - Tavily API key (defaults to process.env.TAVILY_API_KEY)
+ * @param {string} options.apiKey - Tavily API key (defaults to OpenClaw config or process.env.TAVILY_API_KEY)
  * @param {number} options.maxResults - Maximum number of results to return
  * @param {string} options.searchDepth - Search depth ('basic' or 'advanced')
  * @param {boolean} options.includeAnswer - Whether to include AI-generated answer
@@ -14,8 +14,20 @@ const axios = require('axios');
  * @returns {Promise<Object>} Search results
  */
 async function tavilySearch(query, options = {}) {
+  // Try to get config from OpenClaw runtime context (when running as plugin)
+  let configApiKey = undefined;
+  try {
+    // This will work when running inside OpenClaw
+    if (typeof globalThis.openclaw !== 'undefined' && globalThis.openclaw?.getConfig) {
+      const openclawConfig = await globalThis.openclaw.getConfig();
+      configApiKey = openclawConfig?.plugins?.entries?.['tavily-search']?.config?.apiKey;
+    }
+  } catch (e) {
+    // Ignore errors - just fall back to env var
+  }
+  
   const {
-    apiKey = process.env.TAVILY_API_KEY,
+    apiKey = configApiKey || process.env.TAVILY_API_KEY,
     searchDepth = 'basic',
     includeAnswer = false,
     includeSources = true,
@@ -26,7 +38,7 @@ async function tavilySearch(query, options = {}) {
   } = options;
 
   if (!apiKey) {
-    throw new Error('Tavily API key is required. Set TAVILY_API_KEY environment variable.');
+    throw new Error('Tavily API key is required. Set in OpenClaw config or TAVILY_API_KEY environment variable.');
   }
 
   try {

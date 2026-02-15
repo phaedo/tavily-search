@@ -10,8 +10,7 @@
         "type": "string",
         "description": "Tavily API Key"
       }
-    },
-    "required": ["apiKey"]
+    }
   },
   "uiHints": {
     "apiKey": {

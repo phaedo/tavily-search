@@ -1,19 +1,20 @@
 {
   "name": "tavily-search",
-  "version": "1.0.0",
-  "description": "Tavily Search Plugin for OpenClaw",
+  "version": "1.1.0",
+  "description": "Tavily Search Plugin for OpenClaw - Web search with AI-powered results",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "keywords": [
     "openclaw",
     "plugin",
     "search",
     "tavily",
-    "ai"
+    "ai",
+    "web-search"
   ],
-  "author": "OpenClaw",
+  "author": "OpenClaw Community",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.13.5"
@@ -21,6 +22,16 @@
   "openclaw": {
     "type": "plugin",
     "apiVersion": "1.0.0",
+    "configSchema": {
+      "type": "object",
+      "properties": {
+        "apiKey": {
+          "type": "string",
+          "description": "Tavily API Key"
+        }
+      },
+      "required": ["apiKey"]
+    },
     "tool": {
       "name": "tavily_search",
       "description": "使用 Tavily API 进行网页搜索的插件。Tavily 是专为 AI 应用设计的搜索 API，提供结构化搜索结果和内容摘要。",
@@ -72,5 +83,13 @@
         ]
       }
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openclaw/tavily-search.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openclaw/tavily-search/issues"
+  },
+  "homepage": "https://docs.openclaw.ai/plugins/tavily-search"
 }
