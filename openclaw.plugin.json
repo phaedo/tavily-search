@@ -3,6 +3,7 @@
   "name": "Tavily Search Plugin",
   "description": "A plugin that provides Tavily web search functionality for OpenClaw agents",
   "version": "1.0.0",
+  "skills": ["./SKILL.md"],
   "configSchema": {
     "type": "object",
     "properties": {
